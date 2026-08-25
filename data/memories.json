@@ -1,0 +1,37 @@
+[
+  {
+    "id": "MEM-AUTH-019",
+    "title": "SAML SSO Session Expiry Threshold for Healthcare Tenants",
+    "rootCause": "Short session refresh intervals (< 15 mins) triggered auth loops on Epic EMR embedded iframes.",
+    "affectedService": "auth-service",
+    "affectedCustomer": "St. Jude Health & Enterprise Med",
+    "relatedIncidents": [
+      "INC-1402",
+      "INC-1550"
+    ],
+    "resolution": "Enforced 60-minute minimal token lease with sliding renewal for iframe embedded clients.",
+    "safeguards": [
+      "Do not reduce token expiry below 3600s for tenants with tag enterprise-healthcare.",
+      "Always test iframe parent-window postMessage ping before releasing auth changes."
+    ],
+    "sourceReferences": [
+      {
+        "id": "doc-auth-09",
+        "sourceType": "docs",
+        "title": "DOC-AUTH-09: Healthcare SAML & Embedded Browser Constraints",
+        "url": "https://wiki.freshcorp.internal/display/AUTH/DOC-AUTH-09"
+      }
+    ],
+    "tags": [
+      "auth",
+      "saml",
+      "healthcare",
+      "session-timeout"
+    ],
+    "createdAt": "2024-03-10T11:00:00Z",
+    "version": 1,
+    "createdBy": "ContextOS Institutional Extractor",
+    "status": "active",
+    "reuseCount": 14
+  }
+]
