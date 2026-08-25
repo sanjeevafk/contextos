@@ -2,7 +2,8 @@
 
 > **The Great Agent Hackathon by Freshworks**  
 > **Track 2:** Platform Agent Skills & Knowledge  
-> **Inspiration:** Architecturally inspired by the *"Single Retrieval Layer"* paradigm in Cerebras' internal knowledge base, extended into a **bidirectional, agent-native write-back memory layer**.
+> **Inspiration:** Architecturally inspired by the *"Single Retrieval Layer"* paradigm in Cerebras' internal knowledge base, extended into a **bidirectional, agent-native write-back memory layer**.  
+> **📹 Demo Video:** [Watch Walkthrough (Google Drive)](https://drive.google.com/file/d/1zgalXPZMsS1rNu63pL1OIE9tpCXyEZgb/view?usp=sharing)
 
 ---
 
@@ -92,6 +93,8 @@ While Cerebras built a high-performance **read-only retrieval engine**, enterpri
 ---
 
 ## 🚀 Live Demo Walkthrough
+
+> **📹 Video Walkthrough:** [Watch the 50-Second Demo Video on Google Drive](https://drive.google.com/file/d/1zgalXPZMsS1rNu63pL1OIE9tpCXyEZgb/view?usp=sharing)
 
 ### 1. Step 1 (First Query: Scattered Root Cause Investigation)
 1. From the **Home Dashboard**, click the preset query:
