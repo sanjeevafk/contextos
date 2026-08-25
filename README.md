@@ -52,7 +52,7 @@ While Cerebras built a high-performance **read-only retrieval engine**, enterpri
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                          ContextOS Web Workspace                       │
-│     [ Investigation Lab ]  [ Memory Hub ]  [ Sources Explorer ] [ MCP ] │
+│     [ Home Dashboard ]  [ Investigation ]  [ Memory Hub ]  [ Sources ]  │
 └────────────────────────────────────┬────────────────────────────────────┘
                                      │
                                      ▼
@@ -82,9 +82,9 @@ While Cerebras built a high-performance **read-only retrieval engine**, enterpri
 
 - **Framework**: Next.js 14 (App Router, Server Components & Dynamic API Routes)
 - **Language**: TypeScript (End-to-End type safety)
-- **Styling**: Tailwind CSS (Restrained enterprise dark theme, high information density)
+- **Styling**: Tailwind CSS (Restrained enterprise light theme, high information density)
 - **Icons**: Lucide React
-- **Retrieval Engine**: Hybrid Retrieval Engine (BM25 keyword scoring + dense semantic vector simulation + tenant/service metadata boosting)
+- **Retrieval Engine**: Live Hybrid Retrieval Engine (BM25 keyword scoring + dense semantic vector simulation + tenant/service metadata boosting)
 - **Agent Orchestration**: Native modular agent skills exposing REST & MCP endpoints
 - **Persistence**: File-backed atomic memory store (`data/memories.json`)
 - **Protocol**: Model Context Protocol (MCP) JSON-RPC 2.0 compatible tool schemas
@@ -94,12 +94,11 @@ While Cerebras built a high-performance **read-only retrieval engine**, enterpri
 ## 🚀 Live Demo Walkthrough
 
 ### 1. Step 1 (First Query: Scattered Root Cause Investigation)
-1. Navigate to the **Investigation Lab** at [http://localhost:3000](http://localhost:3000).
-2. Click the preset query:
+1. From the **Home Dashboard**, click the preset query:
    ```
-   "Why did Acme's payment deployment fail last month, and has this happened before?"
+   "Why did Acme payment deployment fail?"
    ```
-3. Observe the live **Agent Execution Timeline**:
+2. Observe the live **Agent Execution Timeline**:
    - `intent_parser`: Extracts entity `Acme Corp`, domain `payment-orchestrator`, and historical recurrence flag.
    - `search_knowledge (Jira)`: Finds P0 incident `INC-1842` (May 14, 2024) and prior `INC-1631`.
    - `search_knowledge (GitHub)`: Discovers `PR #9281` (reduced timeout to 800ms) and hotfix commit `abc123d`.
@@ -107,10 +106,10 @@ While Cerebras built a high-performance **read-only retrieval engine**, enterpri
    - `search_knowledge (Docs)`: Pulls `DOC-PAY-042` and `RUNBOOK-PAY-003`.
    - `graph_builder`: Connects the 6-node causality graph.
    - `reasoning_engine`: Correlates multi-hop evidence and calculates 98.8% verification score.
-4. Review the **Executive Answer & Evidence Graph**:
+3. Review the **Executive Answer & Evidence Graph**:
    - Root cause: PR #9281 reduced timeout to 800ms, clipping Acme's 1450ms on-premise proxy.
    - Recurrence: Highlights duplicate incident `INC-1631` from September 2023!
-5. Inspect any source by clicking nodes or citation cards to view the raw payload in the **Slide-Over Drawer**.
+4. Inspect any source by clicking nodes or citation cards to view the raw payload in the **Slide-Over Drawer**.
 
 ### 2. Step 2 (Creating Institutional Memory)
 1. Below the evidence graph, observe the **"Candidate Organizational Memory"** card detected by the agent.
@@ -150,15 +149,29 @@ Inspect live schemas at `/api/tools/schemas` or use the interactive **MCP Tools*
 ## 💻 Local Setup & Running
 
 ```bash
-cd /home/sanjeev/contextos
+# 1. Clone repo
+git clone https://github.com/sanjeevafk/contextos.git
+cd contextos
+
+# 2. Install dependencies & build
 npm install
 npm run build
+
+# 3. Start production server
 npm run start
 ```
 
 ---
 
-## ⚖️ Limitations & Stage-2 Roadmap
+## ⚖️ Limitations (Stage-1 Prototype)
+
+- **Seeded Synthetic Enterprise Corpus**: To allow judges to test the complete multi-source investigation and memory loop deterministically without configuring production OAuth credentials (Jira, Slack, GitHub), the Stage-1 prototype runs against a pre-seeded, cross-linked engineering corpus.
+- **Live Search & Dynamic Persistence**: While the corpus is synthetic, all BM25 tokenization, dense semantic similarity scoring, causality graph assembly, and memory disk writes (`data/memories.json`) execute dynamically in real-time.
+- **Local File-Backed Persistence**: Memory persistence is currently stored via atomic disk JSON rather than an external managed PostgreSQL/pgvector cluster for zero-dependency portability.
+
+---
+
+## 🗺️ Stage-2 Roadmap
 
 1. **Bi-Directional Freshworks Ecosystem Connectors**: Direct Freshservice and Freshdesk app integrations to automatically turn resolved support tickets into ContextOS memory cards.
 2. **Automated CI/CD Guardrails**: GitHub Actions bot that intercepts PRs modifying service configs and automatically queries ContextOS for institutional guardrail violations before merging.
